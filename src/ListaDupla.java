@@ -51,6 +51,42 @@ public class ListaDupla<T> {
     }
 
     // método para remover um nó
+    public void remover(T dado) {
+        No<T> aux = pesquisar(dado);
+        if(aux != null) {
+            // caso 1 --> a lista tem apenas 1 nó
+            if(tamanho == 1) {
+                inicio = null;
+                fim = null;                
+            }
+            else {
+                // caso 2 --> o nó é o primeiro 
+                if(aux == inicio) {
+                    inicio = inicio.getProximo();
+                    aux.setProximo(null);
+                    inicio.setAnterior(null);
+                }
+                else {
+                    // caso 3 --> o nó é o último
+                    if(aux == fim) {
+                        fim = fim.getAnterior();
+                        aux.setAnterior(null);
+                        fim.setProximo(null);
+                    }
+                    else {
+                        // caso 4 --> o nó não é nem o primeiro e nem o último
+                        aux.getAnterior().setProximo(aux.getProximo());
+                        aux.getProximo().setAnterior(aux.getAnterior());
+                        aux.setAnterior(null);
+                        aux.setProximo(null);
+                    }
+                }
+            }
+            aux = null;
+            tamanho--;
+        }
+    }
+
 
     // método para inserir um objeto em uma posição específica
     
